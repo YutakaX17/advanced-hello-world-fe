@@ -6,7 +6,7 @@
     "package": "@yutakax17/advanced-hello-world-fe-core",
     "version": "0.3.0",
     "repository": "https://github.com/YutakaX17/advanced-hello-world-fe-core.git",
-    "ref": "7ae9d2d505d4403258bf4a10fc545e49b174bc01",
+    "ref": "3ce9f33a96d1ad6cfbdb3858cc4351f23868fe5b",
     "style": "styles.css"
   },
   "modules": [
@@ -15,7 +15,7 @@
       "package": "@yutakax17/advanced-hello-world-fe-messages",
       "version": "0.1.0",
       "repository": "https://github.com/YutakaX17/advanced-hello-world-fe-messages.git",
-      "ref": "e89723c352ca83d281d7a1c17d3a159558a5c2cc",
+      "ref": "6034e5b1521367ca9d63ad71fad58de2299f996f",
       "factory": "createMessagesModule",
       "style": "styles.css"
     }
