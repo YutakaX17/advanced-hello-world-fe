@@ -100,7 +100,9 @@ npm run build
 The final image uses unprivileged Nginx and exposes port `8080`. Its container
 health endpoint is `/health`. Released images are published at
 `ghcr.io/yutakax17/advanced-hello-world-fe` with immutable version tags, image
-provenance, and SBOM attestations.
+provenance, and SBOM attestations. A successful version-tag build also creates
+a GitHub Release with immutable image metadata, an SPDX image SBOM, and SHA-256
+checksums.
 
 Pull requests run frontend quality checks, dependency review, CodeQL, secret
 scanning, and vulnerability scanning. See [CONTRIBUTING.md](CONTRIBUTING.md),
