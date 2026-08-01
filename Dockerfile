@@ -2,6 +2,7 @@
 FROM node:22-alpine AS build
 ARG CORE_PACKAGE_SOURCE=github:YutakaX17/advanced-hello-world-fe-core#main
 WORKDIR /app
+RUN apk add --no-cache git
 COPY package*.json ./
 RUN npm pkg set "dependencies.@yutakax17/advanced-hello-world-fe-core=${CORE_PACKAGE_SOURCE}"
 RUN npm install
