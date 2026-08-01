@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "format:check": "prettier --check .",
     "lint": "eslint .",
+    "modules:check": "node scripts/validate-modules.mjs --check-installed && node --test scripts/validate-modules.node.mjs",
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run"
   },

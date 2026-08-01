@@ -5,6 +5,11 @@ point, build configuration, backend proxy, and unprivileged Nginx container. UI
 behavior comes from the separately versioned
 [frontend core](https://github.com/YutakaX17/advanced-hello-world-fe-core).
 
+`modules.json` is the authoritative, schema-validated record of packages
+selected by this assembler. Package installation and generated registration are
+introduced in the modular assembly milestone; the current manifest records the
+existing released core without changing runtime behavior.
+
 ## Requirements
 
 - Git
