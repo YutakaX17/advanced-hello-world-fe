@@ -5,8 +5,21 @@ import { fileURLToPath } from "node:url";
 const moduleId = /^[a-z][a-z0-9-]*$/;
 const packageName = /^(@[a-z0-9-]+\/)?[a-z][a-z0-9-]*$/;
 const exactVersion = /^[0-9]+\.[0-9]+\.[0-9]+$/;
+const repositoryUrl =
+  /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\.git$/;
+const fullCommit = /^[0-9a-f]{40}$/;
+const exportName = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
+const stylePath = /^[A-Za-z0-9_.-]+\.css$/;
 const rootFields = new Set(["$schema", "schemaVersion", "core", "modules"]);
-const packageFields = new Set(["id", "package", "version"]);
+const coreFields = new Set([
+  "id",
+  "package",
+  "version",
+  "repository",
+  "ref",
+  "style",
+]);
+const moduleFields = new Set([...coreFields, "factory"]);
 
 function exactFields(value, fields, location) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -21,13 +34,25 @@ function exactFields(value, fields, location) {
   }
 }
 
-function selection(value, location) {
-  exactFields(value, packageFields, location);
+function selection(value, location, fields) {
+  exactFields(value, fields, location);
   if (!moduleId.test(value.id)) throw new Error(`${location}.id is invalid`);
   if (!packageName.test(value.package))
     throw new Error(`${location}.package is invalid`);
   if (!exactVersion.test(value.version)) {
     throw new Error(`${location}.version must be an exact semantic version`);
+  }
+  if (!repositoryUrl.test(value.repository)) {
+    throw new Error(`${location}.repository must be an HTTPS GitHub Git URL`);
+  }
+  if (!fullCommit.test(value.ref)) {
+    throw new Error(`${location}.ref must be a full commit SHA`);
+  }
+  if (!stylePath.test(value.style)) {
+    throw new Error(`${location}.style is invalid`);
+  }
+  if ("factory" in value && !exportName.test(value.factory)) {
+    throw new Error(`${location}.factory is invalid`);
   }
   return Object.freeze({ ...value });
 }
@@ -43,9 +68,9 @@ export async function loadManifest(path, { checkInstalled = false } = {}) {
   if (!Array.isArray(raw.modules)) throw new Error("modules must be an array");
 
   const manifest = {
-    core: selection(raw.core, "core"),
+    core: selection(raw.core, "core", coreFields),
     modules: raw.modules.map((item, index) =>
-      selection(item, `modules[${index}]`),
+      selection(item, `modules[${index}]`, moduleFields),
     ),
   };
   const selections = [manifest.core, ...manifest.modules];

@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.7
 FROM node:22-alpine AS build
-ARG CORE_PACKAGE_SOURCE=github:YutakaX17/advanced-hello-world-fe-core#v0.1.0
 WORKDIR /app
 RUN apk add --no-cache git
-COPY package*.json ./
-RUN npm pkg set "dependencies.@yutakax17/advanced-hello-world-fe-core=${CORE_PACKAGE_SOURCE}"
-RUN npm install
+COPY package*.json modules.json ./
+COPY scripts ./scripts
+RUN node scripts/install-modules.mjs
 COPY . .
+RUN npm run modules:check
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.29-alpine
