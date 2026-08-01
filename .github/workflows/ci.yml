@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: advanced-hello-world-fe
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: advanced-hello-world-fe
+      - uses: actions/checkout@v4
+        with:
+          repository: YutakaX17/advanced-hello-world-fe-core
+          path: advanced-hello-world-fe-core
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: advanced-hello-world-fe/package-lock.json
+      - name: Build frontend core
+        working-directory: advanced-hello-world-fe-core
+        run: |
+          npm ci
+          npm run build
+      - run: npm ci --ignore-scripts
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
