@@ -14,10 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: advanced-hello-world-fe
       - uses: actions/checkout@v4
         with:
           repository: YutakaX17/advanced-hello-world-fe-core
-          path: ../advanced-hello-world-fe-core
+          path: advanced-hello-world-fe-core
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -33,7 +35,7 @@ jobs:
             type=sha
       - uses: docker/build-push-action@v6
         with:
-          context: .
+          context: advanced-hello-world-fe
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
