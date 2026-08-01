@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 FROM node:22-alpine AS build
-ARG CORE_PACKAGE_SOURCE=github:YutakaX17/advanced-hello-world-fe-core#main
+ARG CORE_PACKAGE_SOURCE=github:YutakaX17/advanced-hello-world-fe-core#v0.1.0
 WORKDIR /app
 RUN apk add --no-cache git
 COPY package*.json ./
