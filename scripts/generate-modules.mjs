@@ -1,5 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 
 import { loadManifest } from "./validate-modules.mjs";
 
@@ -36,6 +36,7 @@ async function main() {
       );
     }
   } else {
+    await mkdir(dirname(outputPath), { recursive: true });
     await writeFile(outputPath, expected);
   }
 }

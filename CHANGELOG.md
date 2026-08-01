@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Create the generated source directory during clean module installation so
+  container builds do not depend on files copied later in the build.
+
 ## 0.2.0
 
 - Install frontend core and feature modules from an authoritative manifest.
