@@ -9,13 +9,16 @@ import { loadManifest } from "./validate-modules.mjs";
 test("repository manifest is valid", async () => {
   const manifest = await loadManifest("modules.json");
   assert.equal(manifest.core.id, "platform-core");
-  assert.deepEqual(manifest.modules, []);
+  assert.deepEqual(
+    manifest.modules.map(({ id }) => id),
+    ["messages"],
+  );
 });
 
 test("duplicate module ids are rejected", async () => {
   const directory = await mkdtemp(join(tmpdir(), "frontend-manifest-"));
   const raw = JSON.parse(await readFile("modules.json", "utf8"));
-  raw.modules = [{ ...raw.core, package: "@yutakax17/another-package" }];
+  raw.modules = [{ ...raw.modules[0], id: raw.core.id }];
   const path = join(directory, "modules.json");
   await writeFile(path, JSON.stringify(raw));
 

@@ -8,12 +8,15 @@
     "build": "tsc -b && vite build",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "modules:check": "node scripts/validate-modules.mjs --check-installed && node --test scripts/validate-modules.node.mjs",
+    "modules:generate": "node scripts/generate-modules.mjs",
+    "modules:install": "node scripts/install-modules.mjs",
+    "modules:check": "node scripts/validate-modules.mjs --check-installed && node scripts/generate-modules.mjs --check && node --test scripts/*.node.mjs",
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run"
   },
   "dependencies": {
     "@yutakax17/advanced-hello-world-fe-core": "file:../advanced-hello-world-fe-core",
+    "@yutakax17/advanced-hello-world-fe-messages": "file:../advanced-hello-world-fe-messages",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

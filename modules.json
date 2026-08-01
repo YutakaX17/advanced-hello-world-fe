@@ -4,7 +4,20 @@
   "core": {
     "id": "platform-core",
     "package": "@yutakax17/advanced-hello-world-fe-core",
-    "version": "0.1.0"
+    "version": "0.3.0",
+    "repository": "https://github.com/YutakaX17/advanced-hello-world-fe-core.git",
+    "ref": "7ae9d2d505d4403258bf4a10fc545e49b174bc01",
+    "style": "styles.css"
   },
-  "modules": []
+  "modules": [
+    {
+      "id": "messages",
+      "package": "@yutakax17/advanced-hello-world-fe-messages",
+      "version": "0.1.0",
+      "repository": "https://github.com/YutakaX17/advanced-hello-world-fe-messages.git",
+      "ref": "e89723c352ca83d281d7a1c17d3a159558a5c2cc",
+      "factory": "createMessagesModule",
+      "style": "styles.css"
+    }
+  ]
 }

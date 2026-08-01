@@ -1,16 +1,16 @@
-import {
-  AppShell,
-  HelloWorldPage,
-  createMessageApi,
-} from "@yutakax17/advanced-hello-world-fe-core";
-import "@yutakax17/advanced-hello-world-fe-core/styles.css";
+import { AppShell } from "@yutakax17/advanced-hello-world-fe-core";
 
-const api = createMessageApi(import.meta.env.VITE_API_BASE_URL ?? "/api");
+import { moduleFactories } from "./generated-modules";
+
+const context = {
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL ?? "/api",
+};
+const routes = moduleFactories.flatMap((factory) => factory(context).routes);
 
 export function App() {
+  const route = routes.find(({ path }) => path === window.location.pathname);
+
   return (
-    <AppShell>
-      <HelloWorldPage api={api} />
-    </AppShell>
+    <AppShell>{route ? <route.component /> : <h1>Page not found</h1>}</AppShell>
   );
 }

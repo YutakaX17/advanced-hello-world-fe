@@ -22,7 +22,13 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: YutakaX17/advanced-hello-world-fe-core
+          ref: 7ae9d2d505d4403258bf4a10fc545e49b174bc01
           path: advanced-hello-world-fe-core
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: YutakaX17/advanced-hello-world-fe-messages
+          ref: e89723c352ca83d281d7a1c17d3a159558a5c2cc
+          path: advanced-hello-world-fe-messages
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "22"
@@ -30,6 +36,11 @@ jobs:
           cache-dependency-path: advanced-hello-world-fe/package-lock.json
       - name: Build frontend core
         working-directory: advanced-hello-world-fe-core
+        run: |
+          npm ci
+          npm run build
+      - name: Build frontend messages
+        working-directory: advanced-hello-world-fe-messages
         run: |
           npm ci
           npm run build
