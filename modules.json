@@ -1,0 +1,10 @@
+{
+  "$schema": "./modules.schema.json",
+  "schemaVersion": 1,
+  "core": {
+    "id": "platform-core",
+    "package": "@yutakax17/advanced-hello-world-fe-core",
+    "version": "0.1.0"
+  },
+  "modules": []
+}

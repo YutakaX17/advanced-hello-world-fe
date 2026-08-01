@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/YutakaX17/advanced-hello-world-fe/modules.schema.json",
+  "title": "Frontend assembly manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "core", "modules"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "core": {
+      "$ref": "#/$defs/package"
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/package"
+      }
+    }
+  },
+  "$defs": {
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "package", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "package": {
+          "type": "string",
+          "pattern": "^(@[a-z0-9-]+/)?[a-z][a-z0-9-]*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    }
+  }
+}
